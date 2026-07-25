@@ -267,12 +267,12 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
       </a>
       <a class="modcard" href="#/guiones" style="--a1:var(--acc-guion-1);--a2:var(--acc-guion-2)">
         <div class="modcard__ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 4h11l3 3v13H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 9h7M8.5 12.5h7M8.5 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="modcard__body"><h3 class="modcard__name">Guiones</h3><p class="modcard__desc">Guiones de llamada paso a paso, listos para seguir en vivo. Frases exactas, indicaciones y pausas.</p></div>
+        <div class="modcard__body"><h3 class="modcard__name">Guion Setter</h3><p class="modcard__desc">Guiones de llamada paso a paso, listos para seguir en vivo. Frases exactas, indicaciones y pausas.</p></div>
         <div class="modcard__foot"><span class="status status--live"><span class="dot"></span> Disponible</span><span class="modcard__cta">Ingresar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
       <a class="modcard" href="#/aperturas" style="--a1:var(--acc-apert-1);--a2:var(--acc-apert-2)">
         <div class="modcard__ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 12a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12v7M9 19h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
-        <div class="modcard__body"><h3 class="modcard__name">Aperturas</h3><p class="modcard__desc">Cómo iniciar la llamada para generar confianza y control desde los primeros segundos.</p></div>
+        <div class="modcard__body"><h3 class="modcard__name">Apertura Closer</h3><p class="modcard__desc">Cómo iniciar la llamada para generar confianza y control desde los primeros segundos.</p></div>
         <div class="modcard__foot"><span class="status status--live"><span class="dot"></span> Disponible</span><span class="modcard__cta">Ingresar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
       <div class="modcard modcard--soon" style="--a1:var(--acc-tec-1);--a2:var(--acc-tec-2)">
@@ -303,16 +303,16 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
 
   <!-- ============ APERTURAS ============ -->
   <section id="view-aperturas" hidden>
-    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Guiones · Inicio de la llamada</p><h1 class="hero__title">Aperturas</h1><p class="hero__sub">Cómo iniciar la llamada para generar confianza, tomar el control y sondear al prospecto antes de presentar.</p></div>
+    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Guiones · Inicio de la llamada</p><h1 class="hero__title">Apertura Closer</h1><p class="hero__sub">Cómo iniciar la llamada para generar confianza, tomar el control y sondear al prospecto antes de presentar.</p></div>
     <div id="aperturasApp"></div>
-    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Aperturas · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
+    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Apertura Closer · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
   </section>
 
   <!-- ============ GUIONES ============ -->
   <section id="view-guiones" hidden>
-    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Guiones de llamada</p><h1 class="hero__title">Guiones</h1><p class="hero__sub">Guiones de llamada paso a paso, listos para seguir en vivo. Las frases exactas, las indicaciones internas y los espacios para que el cliente responda.</p></div>
+    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Guiones de llamada</p><h1 class="hero__title">Guion Setter</h1><p class="hero__sub">Guiones de llamada paso a paso, listos para seguir en vivo. Las frases exactas, las indicaciones internas y los espacios para que el cliente responda.</p></div>
     <div id="guionesApp"></div>
-    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Guiones · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
+    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Guion Setter · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
   </section>
 </main>
 
@@ -428,7 +428,7 @@ function renderGuion(root,guiones){
 
 /* ============ Router ============ */
 const rendered={videos:false,aperturas:false,guiones:false};
-const TITLES={hub:'Arsenal de Ventas · CDI',videos:'Videos de Cierre · Arsenal de Ventas',aperturas:'Aperturas · Arsenal de Ventas',guiones:'Guiones · Arsenal de Ventas'};
+const TITLES={hub:'Arsenal de Ventas · CDI',videos:'Videos de Cierre · Arsenal de Ventas',aperturas:'Apertura Closer · Arsenal de Ventas',guiones:'Guion Setter · Arsenal de Ventas'};
 function route(){
   const map={'#/':'hub','':'hub','#/videos':'videos','#/aperturas':'aperturas','#/guiones':'guiones'};
   const key=map[location.hash]||'hub';
