@@ -216,6 +216,28 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
 .wait::before,.wait::after{content:"";height:1px;flex:1;background:var(--line)}
 .wait span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .wait svg{width:15px;height:15px;color:var(--blu)}
+.src{display:inline-flex;align-items:center;gap:8px;margin:2px 4px 22px;font-size:13px;color:var(--muted);padding:9px 14px;border-radius:999px;background:var(--tile);border:1px solid var(--line)}
+.src a{color:var(--cdi-2);font-weight:600}
+.tsec-title{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;margin:10px 4px 14px}
+.acc{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--panel);backdrop-filter:blur(14px);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
+.acc__head{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left}
+.acc__head:hover{background:var(--tile)}
+.acc__n{flex-shrink:0;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;font-size:14px;font-weight:800;color:#fff;background:linear-gradient(140deg,var(--acc-tec-1),var(--acc-tec-2));box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.acc__ttl{flex:1;min-width:0}
+.acc__t{font-size:15.5px;font-weight:700;letter-spacing:-.01em;display:block}
+.acc__when{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
+.acc__chev{flex-shrink:0;color:var(--muted);transition:transform .25s}
+.acc.open .acc__chev{transform:rotate(180deg)}
+.acc__body{padding:4px 18px 18px;border-top:1px solid var(--line-2)}
+.tsub{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc-tec-2);margin:15px 0 6px}
+.tp{font-size:14px;color:var(--text);line-height:1.65;margin:6px 0}
+.tclave{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--acc-tec-1) 10%,var(--tile));border:1px solid color-mix(in srgb,var(--acc-tec-1) 26%,var(--line));font-size:13.5px;color:var(--text);line-height:1.5}
+.tclave svg{width:16px;height:16px;color:var(--acc-tec-2);flex-shrink:0;margin-top:1px}
+.tclave b{color:var(--text)}
+#objecionesApp .acc__n{background:linear-gradient(140deg,var(--acc-obj-1),var(--acc-obj-2))}
+#objecionesApp .tsub{color:var(--acc-obj-2)}
+#objecionesApp .tclave{background:color-mix(in srgb,var(--acc-obj-1) 10%,var(--tile));border-color:color-mix(in srgb,var(--acc-obj-1) 26%,var(--line))}
+#objecionesApp .tclave svg{color:var(--acc-obj-2)}
 @media(max-width:900px){.modgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:860px){.glayout{grid-template-columns:1fr}.gnav{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px}.gnav::-webkit-scrollbar{display:none}.gnav__lbl{display:none}.gnav a{white-space:nowrap;flex:0 0 auto;padding:9px}.gnav a span.txt{display:none}}
 @media(max-width:760px){.clock{display:none}.hero{padding:46px 2px 28px}}
@@ -251,9 +273,9 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
       <h1 class="hero__title">Todo tu arsenal para vender, en un solo lugar.</h1>
       <p class="hero__sub">Recursos vivos para el equipo comercial: ventas reales grabadas, guiones de llamada, aperturas, técnicas de cierre y manejo de objeciones.</p>
       <div class="hero__stats">
-        <div class="stat"><span class="stat__num">3</span><span class="stat__label">Recursos disponibles</span></div>
+        <div class="stat"><span class="stat__num">5</span><span class="stat__label">Recursos disponibles</span></div>
         <span class="stat__div"></span>
-        <div class="stat"><span class="stat__num">2</span><span class="stat__label">En construcción</span></div>
+        <div class="stat"><span class="stat__num">100%</span><span class="stat__label">Completo</span></div>
         <span class="stat__div"></span>
         <div class="stat"><span class="stat__num">∞</span><span class="stat__label">Por crecer</span></div>
       </div>
@@ -275,16 +297,16 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
         <div class="modcard__body"><h3 class="modcard__name">Apertura Closer</h3><p class="modcard__desc">Cómo iniciar la llamada para generar confianza y control desde los primeros segundos.</p></div>
         <div class="modcard__foot"><span class="status status--live"><span class="dot"></span> Disponible</span><span class="modcard__cta">Ingresar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <div class="modcard modcard--soon" style="--a1:var(--acc-tec-1);--a2:var(--acc-tec-2)">
+      <a class="modcard" href="#/tecnicas" style="--a1:var(--acc-tec-1);--a2:var(--acc-tec-2)">
         <div class="modcard__ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3.5l2.5 5 5.5.8-4 3.9.95 5.5L12 16.9 7.1 18.7 8 13.2 4 9.3l5.5-.8L12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
-        <div class="modcard__body"><h3 class="modcard__name">Técnicas de Cierre</h3><p class="modcard__desc">Frases y técnicas puntuales de cierre para usar en el momento justo de la negociación.</p></div>
-        <div class="modcard__foot"><span class="status status--soon">Próximamente</span><span class="modcard__cta">Pronto</span></div>
-      </div>
-      <div class="modcard modcard--soon" style="--a1:var(--acc-obj-1);--a2:var(--acc-obj-2)">
+        <div class="modcard__body"><h3 class="modcard__name">Técnicas de Cierre</h3><p class="modcard__desc">Los fundamentos del cierre y las técnicas para guiar al cliente a la decisión, con las frases exactas.</p></div>
+        <div class="modcard__foot"><span class="status status--live"><span class="dot"></span> Disponible</span><span class="modcard__cta">Ingresar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="modcard" href="#/objeciones" style="--a1:var(--acc-obj-1);--a2:var(--acc-obj-2)">
         <div class="modcard__ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 5h16v10H8l-4 4V5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 8v3M12 13h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div>
-        <div class="modcard__body"><h3 class="modcard__name">Manejo de Objeciones</h3><p class="modcard__desc">Respuestas listas para cada bloqueo: precio, tiempo, confianza y "lo tengo que pensar".</p></div>
-        <div class="modcard__foot"><span class="status status--soon">Próximamente</span><span class="modcard__cta">Pronto</span></div>
-      </div>
+        <div class="modcard__body"><h3 class="modcard__name">Manejo de Objeciones</h3><p class="modcard__desc">Cómo identificar la barrera real y resolverla: precio, "lo tengo que pensar", la pareja y el miedo.</p></div>
+        <div class="modcard__foot"><span class="status status--live"><span class="dot"></span> Disponible</span><span class="modcard__cta">Ingresar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
     </div>
     <footer class="site-foot"><span>© <span id="year">2026</span> CDI · Consultoría de Importación</span><span>Arsenal de Ventas · Módulo del Central de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
   </section>
@@ -313,6 +335,20 @@ a.modcard:hover .modcard__cta svg,button.modcard:hover .modcard__cta svg{transfo
     <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Guiones de llamada</p><h1 class="hero__title">Guion Setter</h1><p class="hero__sub">Guiones de llamada paso a paso, listos para seguir en vivo. Las frases exactas, las indicaciones internas y los espacios para que el cliente responda.</p></div>
     <div id="guionesApp"></div>
     <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Guion Setter · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
+  </section>
+
+  <!-- ============ TÉCNICAS DE CIERRE ============ -->
+  <section id="view-tecnicas" hidden>
+    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Técnicas · Cierre de ventas</p><h1 class="hero__title">Técnicas de Cierre</h1><p class="hero__sub">Los fundamentos psicológicos del cierre y las técnicas para guiar al cliente a la decisión — con las frases exactas para usar en el momento justo.</p></div>
+    <div id="tecnicasApp"></div>
+    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Técnicas de Cierre · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
+  </section>
+
+  <!-- ============ MANEJO DE OBJECIONES ============ -->
+  <section id="view-objeciones" hidden>
+    <div class="hero"><p class="hero__eyebrow"><span class="pulse"></span> Cierre · Barreras del cliente</p><h1 class="hero__title">Manejo de Objeciones</h1><p class="hero__sub">Detrás de cada "lo tengo que pensar", "no tengo la plata" o "lo hablo con mi pareja" hay una barrera real. Aquí aprendes a identificarla y resolverla — con las frases exactas, adaptadas al Círculo de Importadores.</p></div>
+    <div id="objecionesApp"></div>
+    <footer class="site-foot"><span>© 2026 CDI · Consultoría de Importación</span><span>Manejo de Objeciones · Arsenal de Ventas</span><span class="site-foot__ver">v1.0</span></footer>
   </section>
 </main>
 
@@ -426,16 +462,123 @@ function renderGuion(root,guiones){
   paint();
 }
 
+/* ============ TÉCNICAS DE CIERRE ============ */
+function renderTecnicas(root){
+  const FUNDAMENTOS=[
+    {title:'La psicología del cierre',sub:'Los 2 antecedentes que debes tener',como:[
+      {t:'p',x:'1) Entusiasmo. Más del 50% de tu efectividad al cerrar viene de tu nivel de entusiasmo. Una venta no es más que una transferencia de entusiasmo: cuando transmites tu fe y convicción, la venta sucede casi sola.'},
+      {t:'p',x:'No es entusiasmo teatral, sino contenido — esa energía interna que se nota en tu mirada, tu tono y tu presencia. "Nada grandioso se ha logrado jamás sin entusiasmo" (Emerson).'},
+      {t:'p',x:'2) Expectativa confiada. Espera con certeza y serenidad que el cliente diga que sí. La diferencia es gigante — no preguntes con duda, afirma con seguridad:'},
+      {t:'say',x:'¿Le gustaría el rojo o el verde hoy?'},
+      {t:'p',x:'…en vez de "¿va a querer uno o no?". La confianza se siente: entre más seguro estés de que venderás, más venderás.'}
+    ]},
+    {title:'Califica al prospecto',sub:'4 preguntas antes de intentar cerrar',como:[
+      {t:'p',x:'No puedes venderle a quien no lo necesita o no puede comprarlo. Antes de cerrar, hazte estas 4 preguntas:'},
+      {t:'p',x:'1) ¿Necesita lo que vendo?  2) ¿Puede usarlo realmente?  3) ¿Tiene capacidad de pagarlo?  4) ¿Desea los beneficios de mi producto?'},
+      {t:'p',x:'Cuando cumple los cuatro y muestra interés genuino, estás listo para cerrar.'}
+    ]},
+    {title:'Entiende los miedos',sub:'El del cliente… y el tuyo',como:[
+      {t:'p',x:'El cliente siente el "remordimiento del comprador anticipado": ¿y si me equivoco? ¿y si pago de más? Por eso dice "déjame pensarlo" o "tengo que hablarlo". No son excusas, son señales de duda: tu trabajo no es presionar, sino guiar con calma.'},
+      {t:'p',x:'Tu miedo es el miedo al "no". Pero incluso los mejores escuchan "no" 4 de cada 5 veces. No es personal: el "no" va hacia las circunstancias, no hacia ti.'},
+      {t:'p',x:'Recuerda: más del 80% de las ventas se cierran después del quinto intento.'}
+    ]},
+    {title:'Consigue la cita (teléfono)',sub:'Vende la cita, no el producto',como:[
+      {t:'p',x:'En los primeros segundos debes: romper la distracción, captar la atención y conectar con un beneficio inmediato.'},
+      {t:'say',x:'Hola, soy [tu nombre]. ¿Le gustaría conocer un método probado para aumentar sus ventas un 30% este año?'},
+      {t:'p',x:'Cuando pregunten "¿de qué se trata?", vendes la CITA, no el producto. No intentes explicar todo por teléfono.'},
+      {t:'say',x:'Justamente eso es lo que quiero mostrarle. Solo necesito 10 minutos de su tiempo, y luego decidirá usted mismo.'},
+      {t:'p',x:'Si piden precio: "Si no es lo que busca, no le costará nada." Si piden info por correo: "Prefiero pasársela personalmente" y agenda la visita.'},
+      {t:'say',x:'Solo necesito 10 minutos. En 10 minutos usted decide, usted lo juzgará por sí mismo.'},
+      {t:'p',x:'Esa frase reduce la resistencia: el prospecto siente que tiene el control.'}
+    ]}
+  ];
+  const TECNICAS=[
+    {n:1,title:'Cierre de enfoque',cuando:'Al inicio de la presentación · productos de uso común',
+     que:'Logra que el prospecto se comprometa a darte una respuesta concreta al final, en lugar de dejar todo abierto con un "necesito pensarlo".',
+     como:[{t:'p',x:'Rompe la resistencia inicial y establece un acuerdo:'},{t:'say',x:'Señor prospecto, no intentaré venderle nada en este momento, así que puede relajarse. Solo le mostraré algunas de las razones por las que tantas personas han decidido adquirir este producto. Le pido que escuche con mente abierta y, al final, me diga si también aplican a su situación. ¿Le parece justo?'},{t:'p',x:'La mayoría dice "de acuerdo". Ahí queda el pacto implícito: no le vendo si usted escucha con disposición.'},{t:'p',x:'Si al final aparece el "tengo que pensarlo":'},{t:'say',x:'Al comienzo usted me prometió que al final me daría una respuesta de una u otra forma. Y por lo que me ha comentado, este producto encaja perfectamente con sus necesidades…'},{t:'p',x:'…y pasas directo al cierre.'}],
+     clave:'Consigues el compromiso de decidir ANTES de empezar a presentar.'},
+    {n:2,title:'Cierre de demostración',cuando:'Al inicio · para calificar interés y capacidad de pago',
+     que:'Con una sola pregunta poderosa confirmas si el prospecto está en condiciones de comprar (interés + dinero) antes de presentar.',
+     como:[{t:'say',x:'Señor prospecto, si pudiera mostrarle la mejor oportunidad de inversión que haya visto en su vida, ¿estaría en posición de invertir hoy mismo?'},{t:'p',x:'Si dice que no cuenta con el monto, negocias la cifra hasta encontrar la real ("¿qué tal X?… ¿y X?"). Luego rematas:'},{t:'say',x:'Perfecto. Entonces, si pudiera mostrarle la mejor inversión que haya visto, ¿estaría dispuesto a invertir esa cantidad?'},{t:'p',x:'Así eliminas desde el principio el clásico "tengo que consultarlo": ya confirmaste que puede decidir y que tiene el dinero. Adaptable a inversión, capacitación o bienes raíces: "Si encontráramos la casa exacta, ¿cuándo le gustaría tomar posesión?".'}],
+     clave:'Calificas interés y dinero con una sola pregunta, antes de invertir tu tiempo.'},
+    {n:3,title:'Cierre del botón caliente',cuando:'Durante la presentación · cuando descubres qué desea de verdad',
+     que:'El 80–90% de la decisión depende del 10–20% de las características. Tu trabajo es descubrir el 1 o 2 puntos que realmente encienden el deseo del cliente… y presionarlos una y otra vez.',
+     como:[{t:'p',x:'Haz preguntas inteligentes y escucha. Si le das espacio, el cliente te dirá exactamente qué necesita oír para comprar (su "beneficio clave").'},{t:'p',x:'Ejemplo: en una casa vieja y con defectos, la esposa se enamoró del cerezo en flor del jardín. Cada vez que el esposo señalaba un defecto, el vendedor respondía:'},{t:'say',x:'Sí, pero mire qué hermosa vista del cerezo en flor se tiene desde aquí.'},{t:'p',x:'Repitió el botón caliente habitación tras habitación… y compraron la casa.'},{t:'p',x:'Hablar no es vender. Solo vendes cuando preguntas, escuchas e identificas ese botón, y construyes toda tu estrategia alrededor de él.'}],
+     clave:'Descubre las 1 o 2 cosas que le importan y machácalas; ignora el resto.'},
+    {n:4,title:'Cierre de prueba',cuando:'A lo largo de toda la conversación · como termómetro',
+     que:'Mide el interés y el compromiso emocional del cliente ANTES del cierre final, con preguntas suaves que no presionan pero revelan mucho.',
+     como:[{t:'p',x:'En vez de esperar al final, lanza preguntas suaves durante la presentación:'},{t:'say',x:'¿Qué opina hasta ahora? ¿Cree que esto podría funcionarle? ¿Cómo se sentiría usándolo? ¿Le gustaría algo así en su empresa o su hogar?'},{t:'p',x:'Si responde con entusiasmo, vas bien. Si hay dudas o respuestas vagas, hay objeciones ocultas que debes resolver antes de cerrar.'},{t:'p',x:'Regla de oro: nunca intentes cerrar sin al menos tres cierres de prueba exitosos durante la presentación.'}],
+     clave:'Toma la temperatura del cliente varias veces; así el cierre final no es una sorpresa.'}
+  ];
+  const scriptHTML=x=>`<div class="say"><span class="say__q">“</span><span class="say__t">${esc(x)}</span><button class="say__cp" data-say="${encodeURIComponent(x)}" aria-label="Copiar frase">${ICONS.copy}</button></div>`;
+  function bodyHTML(t){let h='';if(t.que){h+=`<div class="tsub">Qué es</div><p class="tp">${esc(t.que)}</p>`;}if(t.cuando){h+=`<div class="tsub">Cuándo usarla</div><p class="tp">${esc(t.cuando)}</p>`;}if(t.como&&t.como.length){h+=`<div class="tsub">Cómo aplicarla</div>`+t.como.map(i=>i.t==='say'?scriptHTML(i.x):`<p class="tp">${esc(i.x)}</p>`).join('');}if(t.clave){h+=`<div class="tclave">${ICONS.tip}<span><b>La clave:</b> ${esc(t.clave)}</span></div>`;}return h;}
+  const chev='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+  const accHTML=(item,badge)=>`<div class="acc"><button class="acc__head" aria-expanded="false"><span class="acc__n">${badge}</span><span class="acc__ttl"><span class="acc__t">${esc(item.title)}</span>${item.cuando?`<span class="acc__when">${esc(item.cuando)}</span>`:(item.sub?`<span class="acc__when">${esc(item.sub)}</span>`:'')}</span><span class="acc__chev">${chev}</span></button><div class="acc__body" hidden>${bodyHTML(item)}</div></div>`;
+  root.innerHTML=`<div class="src">📚 Basado en <a href="https://www.youtube.com/watch?v=ViDcgj-kMT4" target="_blank" rel="noopener">Brian Tracy — 24 técnicas de cierre</a></div>`+
+    `<h2 class="tsec-title">Fundamentos del cierre</h2>`+FUNDAMENTOS.map(f=>accHTML(f,'◆')).join('')+
+    `<h2 class="tsec-title" style="margin-top:26px">Las técnicas</h2>`+TECNICAS.map(t=>accHTML(t,t.n)).join('');
+  root.querySelectorAll('.acc__head').forEach(h=>h.onclick=()=>{const acc=h.parentElement;const open=acc.classList.toggle('open');h.setAttribute('aria-expanded',open);acc.querySelector('.acc__body').hidden=!open;});
+  root.querySelectorAll('[data-say]').forEach(b=>b.onclick=e=>{e.stopPropagation();copy(decodeURIComponent(b.dataset.say),b,'Frase copiada');});
+}
+
+/* ============ MANEJO DE OBJECIONES ============ */
+function renderObjeciones(root){
+  const INTRO=[
+    {title:'Los 3 tipos de objeción',sub:'Aprende a reconocerlas',como:[
+      {t:'p',x:'Toda objeción cae en uno de tres tipos, aunque se disfrace de "dinero", "pareja" o "lo quiero pensar":'},
+      {t:'p',x:'1) Pantalla de humo — una excusa que tapa la objeción real.  2) Logística — quiere avanzar, pero algo concreto (el capital, la forma de pago) se lo impide.  3) Miedo — le cuesta tomar la decisión.'},
+      {t:'p',x:'Tu trabajo siempre es el mismo: indagar hasta encontrar la barrera real, validarla y resolverla. Nunca pelees con la objeción de la superficie.'}
+    ]}
+  ];
+  const OBJECIONES=[
+    {n:1,title:'"Lo tengo que pensar"',cuando:'Pantalla de humo · "lo quiero pensar", "después te confirmo"',
+     que:'Casi nunca necesita pensar nada: es una excusa educada que tapa la objeción real. Tu meta es destapar qué es lo que de verdad lo frena.',
+     como:[{t:'p',x:'No pelees con la objeción: baja la guardia y ábrela con una pregunta.'},{t:'say',x:'Buenísimo, tranquilo, no hay ningún problema en que lo quieras pensar. Solo para ayudarte mejor: ¿qué es eso que te queda dando vueltas o que no te termina de cerrar para arrancar con tu importación?'},{t:'p',x:'Ahí aparece la objeción real (capital, pareja, miedo). La resuelves con el bloque que corresponda… y cierras.'}],
+     clave:'"Lo tengo que pensar" no se rebate: se destapa. Indaga hasta la objeción real.'},
+    {n:2,title:'Dinero / logística',cuando:'Logística · quiere avanzar pero no tiene todo el capital hoy',
+     que:'La persona SÍ quiere entrar, pero por algo concreto no puede pagar el total hoy (lo tiene en efectivo, le falta una parte, depende de una tarjeta).',
+     como:[{t:'p',x:'1) Valida el deseo y hazlo autoconvencerse:'},{t:'say',x:'Buenísimo. Más allá del tema del pago, el Círculo lo querés hacer, ¿verdad? ¿Qué fue lo que más sentido le viste para tu caso?'},{t:'p',x:'2) Ofrece reserva o cuotas. Si no tiene el monto completo, que deje una reserva para congelar el precio y guardar el cupo, y complete el saldo después (como ya lo han hecho varios que entraron a CDI Max).'},{t:'say',x:'Podemos hacer algo: dejas hoy una reserva para congelar el valor y asegurar tu lugar, y completas el saldo apenas tengas el resto. ¿Te sirve así?'},{t:'p',x:'La reserva es un pago de compromiso: sin ella, es muy probable que después desaparezca. Con ella, subís muchísimo las chances de que complete.'}],
+     clave:'Valida el deseo, hazlo autoconvencerse y asegura un pago de compromiso (reserva).'},
+    {n:3,title:'"Lo tengo que hablar con mi pareja / socio"',cuando:'Puede ser real o excusa · alinea a la tercera persona',
+     que:'Puede ser real o una excusa. La clave es alinear a esa tercera persona a tu favor y devolverle la decisión al prospecto.',
+     como:[{t:'p',x:'1) Valida y alinéate con la pareja:'},{t:'say',x:'Me parece perfecto que lo quieras hablar con ella. Dime una cosa: ¿cómo crees que se sentiría al ver que inviertes en aprender a importar para generar un ingreso extra e incluso dejar de depender de tu trabajo actual?'},{t:'p',x:'2) Justifica el beneficio para la pareja:'},{t:'say',x:'¿Y por qué crees que ella querría eso para ti? ¿Cómo la beneficiaría a ella que tengas más tiempo y más ingresos?'},{t:'p',x:'3) Devuélvele la decisión:'},{t:'say',x:'El programa, ¿quién lo quiere hacer, tú o ella? Y en el peor de los casos, si ella no te apoyara pero tú de verdad le ves el valor y sientes que te va a servir… ¿lo harías igual?'},{t:'p',x:'4) Si dice que sí, confirma y asegura la reserva:'},{t:'say',x:'Entonces, por lo que me dices, no es que la decisión dependa de ella, sino que como pareja te gusta escuchar su opinión, ¿cierto? Buenísimo. Dejemos hoy una reserva para asegurar tu cupo, lo hablas con ella con calma y completas el saldo.'}],
+     clave:'Alinea a la pareja como beneficiaria, devuelve la decisión al prospecto y asegura la reserva.'},
+    {n:4,title:'Miedo a decidir',cuando:'Miedo · le cuesta dar el paso',
+     que:'El patrón de pensar y actuar que tiene hoy es el que lo trajo hasta donde está. Para cambiar su resultado, tiene que cambiar el patrón — y eso da miedo.',
+     como:[{t:'p',x:'1) Valida el miedo (es humano):'},{t:'say',x:'Es totalmente normal que sientas algo de miedo: estás frente a una decisión que puede cambiarte la situación. ¿Quién no sentiría algo así?'},{t:'p',x:'2) Reencuadra: el miedo señala crecimiento.'},{t:'say',x:'Ese freno que sientes es justamente la señal de que estás saliendo de tu zona de confort — y afuera de ahí es donde está el crecimiento. Si sigues haciendo lo mismo, vas a seguir teniendo los mismos resultados. Para resultados distintos hacen falta decisiones distintas.'},{t:'p',x:'3) Convierte el miedo en combustible:'},{t:'say',x:'No uses el miedo como una barrera, úsalo como combustible para dar el paso. Esa es la diferencia entre quienes avanzan y quienes se quedan igual.'}],
+     clave:'Valida el miedo, reencuádralo como señal de crecimiento y conviértelo en combustible.'},
+    {n:5,title:'Miedo a invertir (el monto le pesa)',cuando:'Miedo · el valor de la inversión le representa mucho',
+     que:'El monto le costó meses de ahorro o mucho trabajo, y le da miedo invertirlo. Pero ese mismo miedo es la señal de que necesita empezar a generar más ingresos.',
+     como:[{t:'p',x:'1) Comprende y valida:'},{t:'say',x:'Entiendo perfecto que te dé respeto invertir esta cantidad; es lógico, te costó tiempo y esfuerzo ahorrarla.'},{t:'p',x:'2) Reencuadra el miedo como la razón para entrar (retorno):'},{t:'say',x:'Y justamente que te pese tanto es la mejor señal de que necesitas empezar a generar más. Hoy esta inversión te representa mucho; la idea es que con lo que vas a aprender importando, esa cantidad la recuperes en una o dos ventas, no en meses de ahorro.'},{t:'p',x:'Apóyate en las analogías de la zona de confort y del miedo como combustible.'}],
+     clave:'El miedo a invertir es la razón para invertir: reencuadra el monto como retorno, no como gasto.'},
+    {n:6,title:'Miedo disfrazado de "la pareja"',cuando:'Miedo disfrazado · usa a la pareja como escudo',
+     que:'No es que dependa de la pareja: tiene miedo de que no lo apoye (muchas veces por resultados malos del pasado). Hay que separar el miedo de la excusa.',
+     como:[{t:'p',x:'1) Confirma el apoyo real:'},{t:'say',x:'¿Tu pareja suele apoyarte en decisiones importantes que también les hacen bien a los dos?'},{t:'p',x:'2) Explora el miedo:'},{t:'say',x:'¿Qué es lo que te daría miedo que ella te diga?'},{t:'p',x:'3) Si es por fracasos pasados, rompe el patrón:'},{t:'say',x:'Lo que te pasó antes no te define. Si sigues decidiendo desde los resultados del pasado, tu situación no va a cambiar. Y a fin de cuentas, esto también le va a traer beneficios a ella.'},{t:'p',x:'4) Reafirma y cierra con un empujón:'},{t:'say',x:'Tu pareja te va a apoyar, créeme — y más contenta va a estar cuando llegues con tu primera importación vendida y el dinero sobre la mesa. Dejemos hoy tu reserva y avancemos.'}],
+     clave:'Separa el miedo de la excusa: no depende de la pareja, depende de él. El pasado no lo define.'}
+  ];
+  const scriptHTML=x=>`<div class="say"><span class="say__q">“</span><span class="say__t">${esc(x)}</span><button class="say__cp" data-say="${encodeURIComponent(x)}" aria-label="Copiar frase">${ICONS.copy}</button></div>`;
+  function bodyHTML(t){let h='';if(t.que){h+=`<div class="tsub">Qué hay detrás</div><p class="tp">${esc(t.que)}</p>`;}if(t.cuando){h+=`<div class="tsub">Cuándo aparece</div><p class="tp">${esc(t.cuando)}</p>`;}if(t.como&&t.como.length){h+=`<div class="tsub">Cómo resolverla</div>`+t.como.map(i=>i.t==='say'?scriptHTML(i.x):`<p class="tp">${esc(i.x)}</p>`).join('');}if(t.clave){h+=`<div class="tclave">${ICONS.tip}<span><b>La clave:</b> ${esc(t.clave)}</span></div>`;}return h;}
+  const chev='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+  const accHTML=(item,badge)=>`<div class="acc"><button class="acc__head" aria-expanded="false"><span class="acc__n">${badge}</span><span class="acc__ttl"><span class="acc__t">${esc(item.title)}</span>${item.cuando?`<span class="acc__when">${esc(item.cuando)}</span>`:(item.sub?`<span class="acc__when">${esc(item.sub)}</span>`:'')}</span><span class="acc__chev">${chev}</span></button><div class="acc__body" hidden>${bodyHTML(item)}</div></div>`;
+  root.innerHTML=`<div class="src">🛡️ Marco de manejo de objeciones · <a href="https://www.youtube.com/watch?v=495KbuR4cBA" target="_blank" rel="noopener">fuente</a> · adaptado al Círculo de Importadores</div>`+
+    `<h2 class="tsec-title">El marco</h2>`+INTRO.map(f=>accHTML(f,'◆')).join('')+
+    `<h2 class="tsec-title" style="margin-top:26px">Las objeciones</h2>`+OBJECIONES.map(t=>accHTML(t,t.n)).join('');
+  root.querySelectorAll('.acc__head').forEach(h=>h.onclick=()=>{const acc=h.parentElement;const open=acc.classList.toggle('open');h.setAttribute('aria-expanded',open);acc.querySelector('.acc__body').hidden=!open;});
+  root.querySelectorAll('[data-say]').forEach(b=>b.onclick=e=>{e.stopPropagation();copy(decodeURIComponent(b.dataset.say),b,'Frase copiada');});
+}
+
 /* ============ Router ============ */
-const rendered={videos:false,aperturas:false,guiones:false};
-const TITLES={hub:'Arsenal de Ventas · CDI',videos:'Videos de Cierre · Arsenal de Ventas',aperturas:'Apertura Closer · Arsenal de Ventas',guiones:'Guion Setter · Arsenal de Ventas'};
+const rendered={videos:false,aperturas:false,guiones:false,tecnicas:false,objeciones:false};
+const TITLES={hub:'Arsenal de Ventas · CDI',videos:'Videos de Cierre · Arsenal de Ventas',aperturas:'Apertura Closer · Arsenal de Ventas',guiones:'Guion Setter · Arsenal de Ventas',tecnicas:'Técnicas de Cierre · Arsenal de Ventas',objeciones:'Manejo de Objeciones · Arsenal de Ventas'};
 function route(){
-  const map={'#/':'hub','':'hub','#/videos':'videos','#/aperturas':'aperturas','#/guiones':'guiones'};
+  const map={'#/':'hub','':'hub','#/videos':'videos','#/aperturas':'aperturas','#/guiones':'guiones','#/tecnicas':'tecnicas','#/objeciones':'objeciones'};
   const key=map[location.hash]||'hub';
   if(key==='videos'&&!rendered.videos){renderVideos();rendered.videos=true;}
   if(key==='aperturas'&&!rendered.aperturas){renderGuion($('aperturasApp'),APERTURAS);rendered.aperturas=true;}
   if(key==='guiones'&&!rendered.guiones){renderGuion($('guionesApp'),GUIONES);rendered.guiones=true;}
-  ['hub','videos','aperturas','guiones'].forEach(k=>$('view-'+k).hidden=(k!==key));
+  if(key==='tecnicas'&&!rendered.tecnicas){renderTecnicas($('tecnicasApp'));rendered.tecnicas=true;}
+  if(key==='objeciones'&&!rendered.objeciones){renderObjeciones($('objecionesApp'));rendered.objeciones=true;}
+  ['hub','videos','aperturas','guiones','tecnicas','objeciones'].forEach(k=>$('view-'+k).hidden=(k!==key));
   $('backHub').style.display=key==='hub'?'none':'';
   document.title=TITLES[key];
   window.scrollTo(0,0);
