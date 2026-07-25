@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Videos de Cierre — biblioteca de ventas reales grabadas de CDI." />
+  <meta name="theme-color" content="#0b0907" />
+  <title>Videos de Cierre · Arsenal de Ventas · CDI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../arsenal.css" />
+  <style>
+    /* ---------------- Toolbar (buscador + filtros) ---------------- */
+    .toolbar { display: flex; flex-direction: column; gap: 12px; margin: 6px 4px 22px; }
+    .searchbox { position: relative; max-width: 560px; }
+    .searchbox input { width: 100%; background: var(--tile); border: 1px solid var(--line); border-radius: var(--radius-sm);
+      color: var(--text); font-family: var(--ff); font-size: 15px; padding: 13px 42px 13px 44px; outline: none;
+      transition: border-color .2s, background .2s; }
+    .searchbox input:focus { border-color: color-mix(in srgb, var(--cdi) 45%, var(--line)); background: var(--tile-h); }
+    .searchbox input::placeholder { color: var(--faint); }
+    .searchbox .ic { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--faint); display: grid; }
+    .searchbox .clr { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px;
+      border-radius: 8px; color: var(--muted); background: var(--kbd); border: 1px solid var(--line); display: none; place-items: center; }
+    .searchbox .clr.on { display: grid; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { font-size: 12.5px; font-weight: 600; color: var(--muted); padding: 7px 13px; border-radius: 999px;
+      background: var(--tile); border: 1px solid var(--line); transition: .18s; }
+    .chip:hover { color: var(--text); border-color: color-mix(in srgb, var(--cdi) 40%, var(--line)); }
+    .chip.on { color: #fff; background: linear-gradient(140deg, var(--cdi-2), var(--cdi)); border-color: transparent; }
+    .chip .ct { opacity: .7; margin-left: 4px; }
+
+    /* ---------------- Grid de videos ---------------- */
+    .vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .vcard { position: relative; display: flex; flex-direction: column; overflow: hidden;
+      border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: var(--shadow);
+      transition: transform .3s var(--ease-out), border-color .3s, box-shadow .3s; }
+    .vcard::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; pointer-events: none;
+      background: radial-gradient(220px circle at var(--mx,50%) var(--my,50%), var(--spot), transparent 70%); }
+    .vcard:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--a2) 45%, var(--line));
+      box-shadow: 0 22px 44px -22px color-mix(in srgb, var(--a2) 60%, transparent); }
+    .vcard:hover::after { opacity: 1; }
+
+    .vthumb { position: relative; aspect-ratio: 16/9; cursor: pointer; overflow: hidden; display: grid; place-items: center;
+      background:
+        radial-gradient(120% 120% at 20% 0%, color-mix(in srgb, var(--a1) 30%, transparent), transparent 60%),
+        linear-gradient(150deg, color-mix(in srgb, var(--a2) 22%, var(--bg-2)), var(--bg-2)); }
+    .vthumb .play { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(140deg, var(--cdi-2), var(--cdi)); box-shadow: 0 8px 22px -6px var(--cdi), inset 0 1px 0 rgba(255,255,255,.3);
+      transition: transform .28s var(--ease-out); }
+    .vcard:hover .vthumb .play { transform: scale(1.08); }
+    .vthumb .play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+    .vthumb .num { position: absolute; top: 11px; left: 11px; font-size: 11px; font-weight: 700; color: var(--text);
+      background: color-mix(in srgb, var(--bg) 55%, transparent); border: 1px solid var(--line); backdrop-filter: blur(6px);
+      padding: 4px 9px; border-radius: 8px; letter-spacing: .03em; }
+    .vthumb .etag { position: absolute; bottom: 11px; left: 11px; font-size: 10.5px; font-weight: 700; color: #fff;
+      background: color-mix(in srgb, var(--a2) 92%, #000); padding: 4px 10px; border-radius: 8px; letter-spacing: .03em; }
+    .vthumb .money { position: absolute; bottom: 11px; right: 11px; font-size: 11px; font-weight: 800; color: #06240f;
+      background: linear-gradient(140deg, #4ade80, #22c55e); padding: 4px 10px; border-radius: 8px; }
+
+    .vbody { padding: 16px 17px 17px; display: flex; flex-direction: column; flex: 1; }
+    .vtitle { font-size: 15.5px; font-weight: 700; letter-spacing: -.015em; line-height: 1.35; margin-bottom: 4px; }
+    .vcli { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; }
+    .vtags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .vt2 { font-size: 10.5px; font-weight: 600; color: var(--a2);
+      background: color-mix(in srgb, var(--a1) 13%, transparent);
+      border: 1px solid color-mix(in srgb, var(--a1) 26%, transparent); padding: 3px 9px; border-radius: 999px; }
+    .vacts { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: auto; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-family: var(--ff);
+      font-size: 13px; font-weight: 700; padding: 11px 14px; border-radius: var(--radius-xs); border: 1px solid transparent;
+      transition: .18s var(--ease-out); }
+    .btn svg { width: 15px; height: 15px; }
+    .btn--primary { color: #fff; background: linear-gradient(140deg, var(--cdi-2), var(--cdi));
+      box-shadow: 0 8px 20px -10px var(--cdi), inset 0 1px 0 rgba(255,255,255,.25); }
+    .btn--primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -10px var(--cdi); }
+    .btn--ghost { color: var(--text); background: var(--tile); border-color: var(--line); }
+    .btn--ghost:hover { background: var(--tile-h); border-color: color-mix(in srgb, var(--cdi) 40%, var(--line)); }
+    .btn--ok { color: #06240f !important; background: linear-gradient(140deg, #4ade80, #22c55e) !important; }
+
+    .empty { text-align: center; padding: 72px 20px; color: var(--muted); }
+    .empty .big { font-size: 40px; margin-bottom: 12px; opacity: .6; }
+
+    /* ---------------- Modal ---------------- */
+    .ov { position: fixed; inset: 0; z-index: 100; display: none; align-items: flex-end; justify-content: center;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(6px); }
+    [data-theme="light"] .ov { background: rgba(40,30,20,.34); }
+    .ov.on { display: flex; }
+    @media (min-width: 640px) { .ov { align-items: center; padding: 24px; } }
+    .modal { width: 100%; max-width: 760px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius) var(--radius) 0 0;
+      backdrop-filter: blur(24px) saturate(1.4); box-shadow: var(--shadow-lg); animation: mIn .3s var(--ease-out); }
+    @media (min-width: 640px) { .modal { border-radius: var(--radius); } }
+    @keyframes mIn { from { opacity: 0; transform: translateY(14px) scale(.99); } }
+    .modal::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+      background: linear-gradient(90deg, var(--a1), var(--a2)); }
+    .mhead { display: flex; align-items: flex-start; gap: 13px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    .mhead .mn { flex-shrink: 0; font-size: 11px; font-weight: 700; color: #fff; letter-spacing: .03em;
+      background: color-mix(in srgb, var(--a2) 92%, #000); padding: 5px 10px; border-radius: 8px; }
+    .mhead h2 { flex: 1; font-size: 17px; font-weight: 800; letter-spacing: -.02em; line-height: 1.32; }
+    .mhead .x { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      color: var(--muted); background: var(--tile); border: 1px solid var(--line); font-size: 18px; }
+    .mhead .x:hover { color: var(--text); border-color: color-mix(in srgb, var(--cdi) 40%, var(--line)); }
+    .mtabs { display: flex; gap: 6px; padding: 12px 20px 0; flex-wrap: wrap; }
+    .mtab { font-size: 13px; font-weight: 700; color: var(--muted); padding: 8px 4px; border-bottom: 2px solid transparent; }
+    .mtab.on { color: var(--text); border-color: var(--cdi); }
+    .mbody { padding: 18px 20px; overflow-y: auto; flex: 1; }
+
+    .vwrap { aspect-ratio: 16/9; border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 16px;
+      display: grid; place-items: center; gap: 12px; padding: 20px; text-align: center; color: var(--muted);
+      background:
+        radial-gradient(120% 120% at 20% 0%, color-mix(in srgb, var(--a1) 24%, transparent), transparent 60%),
+        linear-gradient(150deg, color-mix(in srgb, var(--a2) 16%, var(--bg-2)), var(--bg-2));
+      border: 1px solid var(--line); }
+    .vwrap .vi { font-size: 34px; }
+    .vwrap iframe { width: 100%; height: 100%; border: 0; }
+    .vwrap.embed { display: block; padding: 0; }
+
+    .closer { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--muted);
+      background: var(--tile); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; margin-bottom: 14px; }
+    .closer b { color: var(--text); }
+    .analisis { font-size: 14.5px; color: var(--text); line-height: 1.7; white-space: pre-wrap; }
+    .moment { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-2); }
+    .moment:last-child { border: none; }
+    .moment .mt { flex-shrink: 0; font-size: 12px; font-weight: 700; color: var(--cdi-2); background: var(--tile);
+      border: 1px solid var(--line); padding: 4px 9px; border-radius: 8px; font-variant-numeric: tabular-nums; height: fit-content; }
+    .moment .md { font-size: 14px; color: var(--text); line-height: 1.55; }
+    .nomsg { color: var(--faint); font-size: 13.5px; padding: 6px 0; }
+
+    .mfoot { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--line); }
+    .mfoot .btn { padding: 13px; }
+
+    @media (max-width: 560px) { .vgrid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb--a"></span>
+    <span class="orb orb--b"></span>
+    <span class="orb orb--c"></span>
+    <span class="grid-lines"></span>
+  </div>
+
+  <!-- ===================== TOPBAR ===================== -->
+  <header class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="../" aria-label="Arsenal de Ventas · CDI">
+        <span class="brand__mark">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor"/></svg>
+        </span>
+        <span class="brand__text">
+          <strong>Videos de Cierre</strong>
+          <em>Arsenal de Ventas · CDI</em>
+        </span>
+      </a>
+
+      <a class="backlink" href="../" data-name="volver al arsenal de ventas">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Arsenal de Ventas
+      </a>
+
+      <div class="topbar__right">
+        <span class="clock" id="clock" aria-hidden="true">—</span>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Cambiar tema">
+          <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"/></g></svg>
+          <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero reveal">
+      <p class="hero__eyebrow"><span class="pulse"></span> Biblioteca · Ventas reales grabadas</p>
+      <h1 class="hero__title">Videos de Cierre</h1>
+      <p class="hero__sub">
+        Ventas reales del equipo, grabadas y listas para estudiar. Mira cómo se cerró cada una:
+        quién cerró, qué técnicas usó y qué aprendizaje te llevas para tu próxima llamada.
+      </p>
+
+      <div class="hero__stats">
+        <div class="stat"><span class="stat__num" id="stTotal">0</span><span class="stat__label">Videos</span></div>
+        <span class="stat__div"></span>
+        <div class="stat"><span class="stat__num" id="stPaid">0</span><span class="stat__label">Pagaron en llamada</span></div>
+        <span class="stat__div"></span>
+        <div class="stat"><span class="stat__num" id="stTec">0</span><span class="stat__label">Técnicas</span></div>
+      </div>
+    </section>
+
+    <!-- ===================== TOOLBAR ===================== -->
+    <div class="toolbar reveal">
+      <div class="searchbox">
+        <span class="ic"><svg viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <input id="q" type="search" autocomplete="off" placeholder="Busca cliente, técnica, objeción, producto…" />
+        <button class="clr" id="clr" aria-label="Limpiar">&times;</button>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="sec-head" style="margin-top:4px">
+      <span class="sec-count" id="count"></span>
+    </div>
+
+    <section aria-label="Videos de cierre">
+      <div class="vgrid" id="grid"></div>
+      <div class="empty" id="empty" style="display:none">
+        <div class="big">🔍</div>
+        <div>Ningún video coincide.</div>
+        <div style="font-size:13px;margin-top:6px">Prueba otra palabra o quita filtros.</div>
+      </div>
+    </section>
+
+    <footer class="site-foot">
+      <span>© <span id="year">2026</span> CDI · Consultoría de Importación</span>
+      <span>Videos de Cierre · Arsenal de Ventas</span>
+      <span class="site-foot__ver">v1.0</span>
+    </footer>
+  </main>
+
+  <!-- ===================== MODAL ===================== -->
+  <div class="ov" id="ov">
+    <div class="modal">
+      <div class="mhead">
+        <span class="mn" id="mn"></span>
+        <h2 id="mtitle"></h2>
+        <button class="x" id="mx" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="mtabs" id="mtabs"></div>
+      <div class="mbody">
+        <div id="paneVideo"></div>
+        <div id="paneAnalisis" class="analisis"></div>
+        <div id="paneMomentos" style="display:none"></div>
+      </div>
+      <div class="mfoot">
+        <button class="btn btn--ghost" id="mCopyLink">🔗 Copiar link</button>
+        <a class="btn btn--primary" id="mPlay" target="_blank" rel="noopener">▶ Abrir grabación</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  /* =====================================================================
+     VIDEOS DE CIERRE — datos
+     Para agregar un video, copia un bloque y llena los campos:
+       n, title, cliente, monto, closer, vid (YouTube id o ""), link,
+       tecnicas[], analisis, momentos[{t,d}], transcript
+     ===================================================================== */
+  const VIDEOS = [
+    {
+      n:1,
+      title:"Shalen Mora — Imperius Barber Supply (Plan Max)",
+      cliente:"Barbería · importa a EE. UU. · nicho claro (barber supply)",
+      monto:"",
+      closer:"Yeison V.",
+      vid:"",
+      link:"https://dashboard.samu.ai/share/6a64f2da16bfd3c5c7b31a70",
+      tecnicas:["plan Max","escalar negocio","importación recurrente"],
+      analisis:"Empresa de barbería con foco en importar a EE. UU. Cerró plan Max, buscando escalar un negocio ya existente en un nicho muy claro (barber supply). Ve mucho valor en el acompañamiento para estructurar importaciones recurrentes y profesionalizar ventas online.",
+      momentos:[]
+    },
+    {
+      n:2,
+      title:"Antonio José Gómez Camacho — Minicurso (puerta de entrada)",
+      cliente:"Perfil formativo · valida el modelo antes de ticket alto",
+      monto:"",
+      closer:"Alejandro P.",
+      vid:"",
+      link:"https://dashboard.samu.ai/share/6a64f2e6f693b63cbaef398a",
+      tecnicas:["ticket de entrada","minicurso","validación del ecosistema"],
+      analisis:"Cerró minicurso de importaciones y ventas online. Perfil más formativo: quiere entender el modelo antes de irse a un ticket más alto. Ve el minicurso como puerta de entrada para validar el ecosistema y empezar a generar primeras ventas rápido.",
+      momentos:[]
+    },
+    {
+      n:3,
+      title:"Heidy Jhoanna Pastas Ramírez — Pagó en la llamada",
+      cliente:"Alta urgencia · necesidad de cambiar su situación económica",
+      monto:"$2.500.000",
+      closer:"Wendy Ortiz",
+      vid:"",
+      link:"https://dashboard.samu.ai/share/6a64f2f116bfd3c5c7b31ae8",
+      tecnicas:["urgencia","contención emocional","facilidades de pago","acción inmediata"],
+      analisis:"Pagó durante la llamada (2.500.000 COP). Llegó con alta urgencia y necesidad de cambiar su situación económica; el cierre se apoyó en mucha contención emocional y en mostrarle un camino claro paso a paso. Es un caso típico de \"acción inmediata\" cuando se resuelven miedos y formas de pago.",
+      momentos:[]
+    },
+    {
+      n:4,
+      title:"Alexandra Espinosa / Angie Alexandra Gil — CDI Max",
+      cliente:"Dúo de socias · una financiera, otra operativa",
+      monto:"$600.000 (reserva) + saldo",
+      closer:"Alejandro P.",
+      vid:"",
+      link:"https://dashboard.samu.ai/share/6a64f2fcf693b63cbaef3a1d",
+      tecnicas:["reserva + saldo","venta a dúo","horizonte 9 meses"],
+      analisis:"Cierre de CDI Max con reserva inicial de 600.000 COP y saldo posterior. Dúo de socias: una más financiera y otra más operativa. El foco del cierre fue mostrar cómo el Max les da tiempo suficiente (9 meses) para aprender, importar y montar sistema de ventas sin ir \"a la carrera\".",
+      momentos:[]
+    },
+    {
+      n:5,
+      title:"Claudia Andrade — Piñatería (CDI Max)",
+      cliente:"Microempresa de piñatería · margen y capital limitado",
+      monto:"Pago parcial + saldo en 1 mes",
+      closer:"Alejandro Pulido",
+      vid:"",
+      link:"https://dashboard.samu.ai/share/6a64eba5f693b63cbaef279b",
+      tecnicas:["dolor de margen","capital limitado","consolidado","validación de producto"],
+      analisis:"Claudia y Fabián tienen una microempresa de piñatería y querían dejar de comprar a intermediarios. Alejandro trabajó mucho el dolor de margen y capital limitado, les mostró cómo podían empezar con consolidado y validación de producto. Pagaron en la llamada una parte y se comprometieron a completar el resto en un mes, entrando a CDI Max para escalar línea de piñatería y materia prima.",
+      momentos:[]
+    }
+  ];
+
+  /* Paleta de acentos rotativa (para diferenciar tarjetas visualmente) */
+  const ACCENTS = [
+    ['var(--acc-video-1)','var(--acc-video-2)'],
+    ['var(--acc-guion-1)','var(--acc-guion-2)'],
+    ['var(--acc-apert-1)','var(--acc-apert-2)'],
+    ['var(--acc-tec-1)','var(--acc-tec-2)'],
+    ['var(--acc-obj-1)','var(--acc-obj-2)']
+  ];
+  const accentOf = v => ACCENTS[(v.n - 1) % ACCENTS.length];
+
+  /* ---------------- Lógica ---------------- */
+  const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  VIDEOS.forEach(v => {
+    v.tecnicas = v.tecnicas || []; v.momentos = v.momentos || [];
+    v._s = norm([v.title, v.cliente, v.analisis, v.tecnicas.join(' '), v.closer, 'video '+v.n].join(' '));
+  });
+
+  const tecCounts = {}; VIDEOS.forEach(v => v.tecnicas.forEach(t => tecCounts[t]=(tecCounts[t]||0)+1));
+  const TECS = Object.keys(tecCounts).sort((a,b)=>tecCounts[b]-tecCounts[a]);
+
+  let activeTecs = new Set(), query = '';
+  const $ = id => document.getElementById(id);
+  const grid = $('grid'), chipsEl = $('chips');
+
+  // Stats
+  $('stTotal').textContent = VIDEOS.length;
+  $('stPaid').textContent = VIDEOS.filter(v => v.monto).length;
+  $('stTec').textContent = TECS.length;
+
+  function renderChips(){
+    chipsEl.innerHTML = TECS.map(t => `<button class="chip" data-t="${t}">${t}<span class="ct">${tecCounts[t]}</span></button>`).join('');
+    chipsEl.querySelectorAll('.chip').forEach(ch => ch.onclick = () => {
+      const t = ch.dataset.t; activeTecs.has(t) ? activeTecs.delete(t) : activeTecs.add(t); render();
+    });
+  }
+  function syncChips(){ chipsEl.querySelectorAll('.chip').forEach(ch => ch.classList.toggle('on', activeTecs.has(ch.dataset.t))); }
+
+  const tokens = () => norm(query).split(/\s+/).filter(Boolean);
+  function matches(v){
+    if (activeTecs.size && ![...activeTecs].every(t => v.tecnicas.includes(t))) return false;
+    const tk = tokens();
+    if (tk.length && !tk.every(w => v._s.includes(w))) return false;
+    return true;
+  }
+
+  function esc(s){ return (s||'').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+
+  function card(v){
+    const [a1,a2] = accentOf(v);
+    const tg = v.tecnicas.slice(0,3).map(t => `<span class="vt2">${esc(t)}</span>`).join('');
+    const money = v.monto ? `<span class="money">${esc(v.monto)}</span>` : '';
+    return `<div class="vcard" style="--a1:${a1};--a2:${a2}">
+      <a class="vthumb" href="${v.link}" target="_blank" rel="noopener" title="Ver grabación">
+        <span class="num">VIDEO ${v.n}</span>
+        <span class="etag">Cierre</span>${money}
+        <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      </a>
+      <div class="vbody">
+        <p class="vtitle">${esc(v.title)}</p>
+        ${v.cliente ? `<p class="vcli">${esc(v.cliente)}</p>` : ''}
+        <div class="vtags">${tg}</div>
+        <div class="vacts">
+          <button class="btn btn--primary" data-open="${v.n}">▶ Analizar</button>
+          <button class="btn btn--ghost" data-copy="${v.n}" aria-label="Copiar link">🔗</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function render(){
+    const res = VIDEOS.filter(matches);
+    $('count').innerHTML = `<b style="color:var(--text)">${res.length}</b> de ${VIDEOS.length} videos`;
+    grid.innerHTML = res.map(card).join('');
+    $('empty').style.display = res.length ? 'none' : 'block';
+    grid.style.display = res.length ? 'grid' : 'none';
+    bindCards(); syncChips(); bindSpotlight();
+  }
+
+  function bindCards(){
+    grid.querySelectorAll('[data-open]').forEach(e => e.onclick = () => openModal(+e.dataset.open));
+    grid.querySelectorAll('[data-copy]').forEach(e => e.onclick = ev => { ev.stopPropagation(); copy(videoBy(+e.dataset.copy).link, e); });
+  }
+  function bindSpotlight(){
+    grid.querySelectorAll('.vcard').forEach(card => card.addEventListener('pointermove', ev => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (ev.clientX - r.left)+'px');
+      card.style.setProperty('--my', (ev.clientY - r.top)+'px');
+    }));
+  }
+  const videoBy = n => VIDEOS.find(v => v.n === n);
+
+  /* copiar */
+  function copy(text, btn, msg){
+    const done = () => { toast(msg || 'Link copiado'); if (btn){ const o = btn.innerHTML; btn.classList.add('btn--ok'); btn.innerHTML='✓'; setTimeout(()=>{btn.classList.remove('btn--ok');btn.innerHTML=o;},1100);} };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(()=>fb(text,done));
+    else fb(text,done);
+  }
+  function fb(text,done){ const t=document.createElement('textarea'); t.value=text; t.style.position='fixed'; t.style.opacity=0; document.body.appendChild(t); t.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(t); done(); }
+  let toT; function toast(m){ const el=$('toast'); el.textContent=m; el.classList.add('is-visible'); clearTimeout(toT); toT=setTimeout(()=>el.classList.remove('is-visible'),1700); }
+
+  /* modal */
+  let curV = null;
+  function openModal(n){
+    const v = videoBy(n); curV = v;
+    const [a1,a2] = accentOf(v);
+    const modal = document.querySelector('.modal');
+    modal.style.setProperty('--a1', a1); modal.style.setProperty('--a2', a2);
+    $('mn').textContent = 'VIDEO ' + v.n;
+    $('mn').style.background = `color-mix(in srgb, ${a2} 92%, #000)`;
+    $('mtitle').textContent = v.title;
+    $('mPlay').href = v.link;
+
+    const id = v.vid || '';
+    $('paneVideo').innerHTML = id
+      ? `<div class="vwrap embed"><iframe src="https://www.youtube.com/embed/${id}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>`
+      : `<div class="vwrap"><span class="vi">🎬</span><span>Grabación en Samu</span><a class="btn btn--primary" href="${v.link}" target="_blank" rel="noopener">▶ Abrir grabación</a></div>`;
+
+    const tk = tokens();
+    let a = esc(v.analisis); tk.forEach(w => { if (w.length>=2) a = a.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:var(--gold);color:#000;border-radius:3px;padding:0 2px">$1</mark>'); });
+    const closerLine = v.closer ? `<div class="closer">👤 Cerró: <b>${esc(v.closer)}</b></div>` : '';
+    $('paneAnalisis').innerHTML = closerLine + (a || '<div class="nomsg">Sin análisis todavía.</div>');
+
+    $('paneMomentos').innerHTML = v.momentos.length
+      ? v.momentos.map(m => `<div class="moment"><span class="mt">${esc(m.t)}</span><span class="md">${esc(m.d)}</span></div>`).join('')
+      : '<div class="nomsg">Sin momentos clave marcados todavía.</div>';
+
+    const tabs = [['analisis','Análisis']];
+    if (v.momentos.length) tabs.push(['momentos','Momentos clave']);
+    else tabs.push(['momentos','Momentos clave']);
+    $('mtabs').innerHTML = tabs.map((t,i)=>`<button class="mtab${i===0?' on':''}" data-t="${t[0]}">${t[1]}</button>`).join('');
+    $('mtabs').querySelectorAll('.mtab').forEach(b => b.onclick = () => setTab(b.dataset.t));
+    setTab('analisis');
+
+    $('ov').classList.add('on'); document.body.style.overflow='hidden';
+    document.querySelector('.mbody').scrollTop = 0;
+  }
+  function closeModal(){ $('ov').classList.remove('on'); document.body.style.overflow=''; }
+  function setTab(t){
+    document.querySelectorAll('.mtab').forEach(b => b.classList.toggle('on', b.dataset.t===t));
+    $('paneAnalisis').style.display = t==='analisis' ? 'block' : 'none';
+    $('paneMomentos').style.display = t==='momentos' ? 'block' : 'none';
+  }
+  $('mx').onclick = closeModal;
+  $('ov').onclick = e => { if (e.target === $('ov')) closeModal(); };
+  $('mCopyLink').onclick = () => copy(curV.link, $('mCopyLink'));
+
+  /* buscador */
+  const qEl = $('q');
+  qEl.oninput = () => { query = qEl.value.trim(); $('clr').classList.toggle('on', !!query); render(); };
+  $('clr').onclick = () => { qEl.value=''; query=''; $('clr').classList.remove('on'); render(); qEl.focus(); };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+    if (e.key === '/' && document.activeElement !== qEl) { e.preventDefault(); qEl.focus(); }
+  });
+
+  renderChips();
+  render();
+  </script>
+  <script src="../arsenal.js"></script>
+</body>
+</html>
